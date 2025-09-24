@@ -1,0 +1,25 @@
+# NPC Tasks Configuration
+# This file stores persistent task data for NPCs
+
+npcs:
+  # Example NPC task data structure:
+  # npcs:
+  #   1:  # NPC ID
+  #     current:
+  #       type: "woodcutting"
+  #       assignedBy: "player-uuid"
+  #       startTime: 1234567890
+  #       progress: 100
+  #       repetitionsCompleted: 1
+  #       isCompleted: false
+  #       isPaused: false
+  #       data:
+  #         treesChopped: 5
+  #         logsCollected: 15
+  #     queued:
+  #       0:
+  #         type: "mining"
+  #         assignedBy: "player-uuid"
+  #         # ... other task data
+  #     queueSize: 1
+  #     hasActiveTask: true

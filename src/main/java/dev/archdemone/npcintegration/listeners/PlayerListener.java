@@ -4,6 +4,7 @@ import dev.archdemone.npcintegration.NPCIntegrationPlugin;
 import dev.archdemone.npcintegration.managers.NPCManager;
 import dev.archdemone.npcintegration.integrations.MythicMobsIntegration;
 import dev.archdemone.npcintegration.chat.NPCChatSystem;
+import dev.archdemone.npcintegration.chat.EnhancedChatSystem;
 import dev.archdemone.npcintegration.utils.MessageUtil;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.entity.Entity;
@@ -24,11 +25,13 @@ public class PlayerListener implements Listener {
     private final NPCIntegrationPlugin plugin;
     private final NPCManager npcManager;
     private final NPCChatSystem chatSystem;
+    private final EnhancedChatSystem enhancedChatSystem;
     
     public PlayerListener(NPCIntegrationPlugin plugin) {
         this.plugin = plugin;
         this.npcManager = plugin.getNPCManager();
         this.chatSystem = plugin.getChatSystem();
+        this.enhancedChatSystem = plugin.getEnhancedChatSystem();
     }
     
     @EventHandler
@@ -63,8 +66,8 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         // Clear active conversations when player leaves
-        if (chatSystem != null) {
-            chatSystem.clearConversation(event.getPlayer());
+        if (enhancedChatSystem != null) {
+            enhancedChatSystem.clearConversation(event.getPlayer());
         }
     }
     
@@ -73,8 +76,8 @@ public class PlayerListener implements Listener {
         Player player = event.getPlayer();
         String message = event.getMessage();
         
-        // Process chat message for NPC interactions
-        if (chatSystem != null && chatSystem.processChatMessage(player, message)) {
+        // Process chat message for NPC interactions using enhanced system
+        if (enhancedChatSystem != null && enhancedChatSystem.processChatMessage(player, message)) {
             // Cancel the event so the message doesn't appear in normal chat
             event.setCancelled(true);
             

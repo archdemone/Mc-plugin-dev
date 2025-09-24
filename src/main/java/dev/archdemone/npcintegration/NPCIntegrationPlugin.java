@@ -4,10 +4,13 @@ import dev.archdemone.npcintegration.integrations.CitizensIntegration;
 import dev.archdemone.npcintegration.integrations.MythicMobsIntegration;
 import dev.archdemone.npcintegration.integrations.ModelEngineIntegration;
 import dev.archdemone.npcintegration.commands.NPCCommand;
+import dev.archdemone.npcintegration.commands.EnhancedNPCCommand;
 import dev.archdemone.npcintegration.listeners.PlayerListener;
 import dev.archdemone.npcintegration.managers.NPCManager;
 import dev.archdemone.npcintegration.chat.NPCChatSystem;
 import dev.archdemone.npcintegration.chat.NPCTaskManager;
+import dev.archdemone.npcintegration.chat.EnhancedChatSystem;
+import dev.archdemone.npcintegration.tasks.EnhancedTaskManager;
 import dev.archdemone.npcintegration.utils.MessageUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,6 +27,8 @@ public class NPCIntegrationPlugin extends JavaPlugin {
     private ModelEngineIntegration modelEngineIntegration;
     private NPCChatSystem chatSystem;
     private NPCTaskManager taskManager;
+    private EnhancedChatSystem enhancedChatSystem;
+    private EnhancedTaskManager enhancedTaskManager;
     
     @Override
     public void onEnable() {
@@ -45,6 +50,13 @@ public class NPCIntegrationPlugin extends JavaPlugin {
         chatSystem = new NPCChatSystem(this);
         taskManager = new NPCTaskManager(this, chatSystem);
         
+        // Initialize enhanced systems
+        enhancedTaskManager = new EnhancedTaskManager(this);
+        enhancedChatSystem = new EnhancedChatSystem(this, enhancedTaskManager);
+        
+        // Start auto-save for task persistence
+        enhancedTaskManager.startAutoSave();
+        
         // Register commands
         registerCommands();
         
@@ -61,6 +73,10 @@ public class NPCIntegrationPlugin extends JavaPlugin {
     public void onDisable() {
         if (npcManager != null) {
             npcManager.saveAll();
+        }
+        
+        if (enhancedTaskManager != null) {
+            enhancedTaskManager.saveAllData();
         }
         
         getLogger().info("NPC Integration Plugin has been disabled!");
@@ -93,7 +109,10 @@ public class NPCIntegrationPlugin extends JavaPlugin {
     }
     
     private void registerCommands() {
-        getCommand("npcintegration").setExecutor(new NPCCommand(this));
+        // Register enhanced command
+        EnhancedNPCCommand enhancedCommand = new EnhancedNPCCommand(this);
+        getCommand("npcintegration").setExecutor(enhancedCommand);
+        getCommand("npcintegration").setTabCompleter(enhancedCommand);
     }
     
     private void registerListeners() {
@@ -127,6 +146,14 @@ public class NPCIntegrationPlugin extends JavaPlugin {
     
     public NPCTaskManager getTaskManager() {
         return taskManager;
+    }
+    
+    public EnhancedChatSystem getEnhancedChatSystem() {
+        return enhancedChatSystem;
+    }
+    
+    public EnhancedTaskManager getEnhancedTaskManager() {
+        return enhancedTaskManager;
     }
     
     public boolean isIntegrationEnabled(String integration) {
