@@ -1,0 +1,12 @@
+/workspace/src/main/java/dev/archdemone/npcintegration/integrations/CitizensIntegration.java
+/workspace/src/main/java/dev/archdemone/npcintegration/NPCIntegrationPlugin.java
+/workspace/src/main/java/dev/archdemone/npcintegration/chat/NPCChatSystem.java
+/workspace/src/main/java/dev/archdemone/npcintegration/listeners/PlayerListener.java
+/workspace/src/main/java/dev/archdemone/npcintegration/integrations/MythicMobsIntegration.java
+/workspace/src/main/java/dev/archdemone/npcintegration/managers/NPCManager.java
+/workspace/src/main/java/dev/archdemone/npcintegration/examples/WoodcutterExample.java
+/workspace/src/main/java/dev/archdemone/npcintegration/chat/NPCTaskManager.java
+/workspace/src/main/java/dev/archdemone/npcintegration/chat/NPCMemory.java
+/workspace/src/main/java/dev/archdemone/npcintegration/commands/NPCCommand.java
+/workspace/src/main/java/dev/archdemone/npcintegration/integrations/ModelEngineIntegration.java
+/workspace/src/main/java/dev/archdemone/npcintegration/utils/MessageUtil.java
