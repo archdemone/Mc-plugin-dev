@@ -1,0 +1,40 @@
+# McPluginDev Configuration File
+# This file contains configuration options for the plugin development workspace
+
+# General Settings
+plugin-settings:
+  debug-mode: false
+  auto-save-interval: 300 # seconds
+
+# Player Join/Leave Messages
+enable-welcome-message: true
+welcome-message: "Welcome to the server, {player}!"
+enable-goodbye-message: true
+goodbye-message: "Goodbye, {player}!"
+
+# Example Command Settings
+example-command:
+  enable-feature: true
+  test-message: "This is a test message from config!"
+  max-value: 100
+
+# Development Settings (for ChatGPT copilot)
+development:
+  enable-hot-reload: false
+  log-level: "INFO"
+  enable-metrics: true
+
+# Database Settings (example)
+database:
+  enabled: false
+  host: "localhost"
+  port: 3306
+  database: "mcplugindev"
+  username: "root"
+  password: "password"
+  
+# Feature Toggles
+features:
+  player-tracking: true
+  custom-commands: true
+  event-logging: true
