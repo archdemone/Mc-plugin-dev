@@ -116,7 +116,16 @@ public class NPCIntegrationPlugin extends JavaPlugin {
     }
     
     private void registerListeners() {
-        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        try {
+            getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+            getLogger().info("Event listeners registered successfully!");
+        } catch (NoClassDefFoundError e) {
+            getLogger().warning("Could not register event listeners due to missing dependencies: " + e.getMessage());
+            getLogger().info("Some features may not work without Citizens, MythicMobs, or ModelEngine plugins.");
+        } catch (Exception e) {
+            getLogger().severe("Failed to register event listeners: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     // Getters

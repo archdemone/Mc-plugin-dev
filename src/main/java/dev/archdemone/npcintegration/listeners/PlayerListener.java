@@ -97,10 +97,15 @@ public class PlayerListener implements Listener {
         
         // Check if the entity is a Citizens NPC
         if (plugin.getCitizensIntegration() != null) {
-            NPC npc = plugin.getCitizensIntegration().getNPC(entity);
-            if (npc != null) {
-                handleNPCInteraction(npc, player);
-                return;
+            try {
+                NPC npc = plugin.getCitizensIntegration().getNPC(entity);
+                if (npc != null) {
+                    handleNPCInteraction(npc, player);
+                    return;
+                }
+            } catch (NoClassDefFoundError e) {
+                // Citizens classes not available, skip NPC interaction
+                plugin.getLogger().fine("Citizens classes not available for entity interaction");
             }
         }
         

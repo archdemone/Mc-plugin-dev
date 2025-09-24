@@ -6,7 +6,7 @@ author: archdemone
 description: Advanced NPC integration using Citizens, MythicMobs, and ModelEngine
 website: https://github.com/archdemone/npc-integration
 
-depend: [Citizens, MythicMobs, ModelEngine]
+softdepend: [Citizens, MythicMobs, ModelEngine]
 
 commands:
   npcintegration:
