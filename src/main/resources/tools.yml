@@ -1,0 +1,16 @@
+# NPC Tools Configuration
+# This file stores persistent tool inventory data for NPCs
+
+npcs:
+  # Example NPC tool inventory structure:
+  # npcs:
+  #   1:  # NPC ID
+  #     tools:
+  #       0:
+  #         material: "DIAMOND_AXE"
+  #         amount: 1
+  #         durability: 0
+  #       1:
+  #         material: "IRON_PICKAXE"
+  #         amount: 1
+  #         durability: 100
