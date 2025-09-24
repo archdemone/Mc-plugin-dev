@@ -1,0 +1,59 @@
+# NPC Integration Plugin Configuration
+
+# General Settings
+general:
+  debug: false
+  auto-save-interval: 300 # seconds
+  max-npcs-per-player: 10
+
+# Citizens Integration
+citizens:
+  enabled: true
+  default-npc-name: "Woodcutter"
+  default-skin: "fletcher"
+  
+# MythicMobs Integration
+mythicmobs:
+  enabled: true
+  default-mob-type: "Woodcutter"
+  spawn-radius: 5
+  
+# ModelEngine Integration
+modelengine:
+  enabled: true
+  default-model: "woodcutter"
+  animation-speed: 1.0
+
+# NPC Types Configuration
+npc-types:
+  woodcutter:
+    profession: "fletcher"
+    model: "woodcutter"
+    mythicmob-type: "Woodcutter"
+    abilities:
+      - "woodcutting"
+      - "tree-planting"
+    inventory:
+      - "wooden_axe"
+      - "sapling"
+      
+  blacksmith:
+    profession: "armorer"
+    model: "blacksmith"
+    mythicmob-type: "Blacksmith"
+    abilities:
+      - "smithing"
+      - "repairing"
+    inventory:
+      - "iron_pickaxe"
+      - "anvil"
+
+# Messages
+messages:
+  prefix: "&8[&6NPC Integration&8] "
+  npc-created: "&aNPC created successfully!"
+  npc-removed: "&cNPC removed successfully!"
+  npc-spawned: "&aNPC spawned at your location!"
+  error-permission: "&cYou don't have permission to use this command!"
+  error-invalid-command: "&cInvalid command! Use /npc help for available commands."
+  error-npc-not-found: "&cNPC not found!"
