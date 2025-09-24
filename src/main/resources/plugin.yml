@@ -1,0 +1,24 @@
+name: McPluginDev
+version: ${project.version}
+main: dev.archdemone.mcplugin.McPluginDevPlugin
+api-version: 1.20
+author: ArchDemone
+description: ${project.description}
+website: https://github.com/archdemone/Mc-plugin-dev
+
+commands:
+  example:
+    description: Example command for plugin development
+    usage: /example [arg]
+    permission: mcplugindev.example
+    permission-message: You don't have permission to use this command!
+
+permissions:
+  mcplugindev.*:
+    description: All plugin permissions
+    default: op
+    children:
+      mcplugindev.example: true
+  mcplugindev.example:
+    description: Permission to use example command
+    default: true
