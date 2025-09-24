@@ -6,6 +6,14 @@ general:
   auto-save-interval: 300 # seconds
   max-npcs-per-player: 10
 
+# Chat System Settings
+chat:
+  enabled: true
+  conversation-timeout: 30 # seconds
+  max-conversation-history: 10 # per player per NPC
+  nearby-npc-radius: 5 # blocks
+  task-update-radius: 10 # blocks for task progress messages
+
 # Citizens Integration
 citizens:
   enabled: true

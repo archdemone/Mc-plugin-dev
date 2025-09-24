@@ -6,6 +6,8 @@ import dev.archdemone.npcintegration.integrations.ModelEngineIntegration;
 import dev.archdemone.npcintegration.commands.NPCCommand;
 import dev.archdemone.npcintegration.listeners.PlayerListener;
 import dev.archdemone.npcintegration.managers.NPCManager;
+import dev.archdemone.npcintegration.chat.NPCChatSystem;
+import dev.archdemone.npcintegration.chat.NPCTaskManager;
 import dev.archdemone.npcintegration.utils.MessageUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,6 +22,8 @@ public class NPCIntegrationPlugin extends JavaPlugin {
     private CitizensIntegration citizensIntegration;
     private MythicMobsIntegration mythicMobsIntegration;
     private ModelEngineIntegration modelEngineIntegration;
+    private NPCChatSystem chatSystem;
+    private NPCTaskManager taskManager;
     
     @Override
     public void onEnable() {
@@ -36,6 +40,10 @@ public class NPCIntegrationPlugin extends JavaPlugin {
         
         // Initialize managers
         npcManager = new NPCManager(this);
+        
+        // Initialize chat system
+        chatSystem = new NPCChatSystem(this);
+        taskManager = new NPCTaskManager(this, chatSystem);
         
         // Register commands
         registerCommands();
@@ -111,6 +119,14 @@ public class NPCIntegrationPlugin extends JavaPlugin {
     
     public ModelEngineIntegration getModelEngineIntegration() {
         return modelEngineIntegration;
+    }
+    
+    public NPCChatSystem getChatSystem() {
+        return chatSystem;
+    }
+    
+    public NPCTaskManager getTaskManager() {
+        return taskManager;
     }
     
     public boolean isIntegrationEnabled(String integration) {

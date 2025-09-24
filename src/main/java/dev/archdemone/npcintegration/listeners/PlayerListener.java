@@ -3,12 +3,15 @@ package dev.archdemone.npcintegration.listeners;
 import dev.archdemone.npcintegration.NPCIntegrationPlugin;
 import dev.archdemone.npcintegration.managers.NPCManager;
 import dev.archdemone.npcintegration.integrations.MythicMobsIntegration;
+import dev.archdemone.npcintegration.chat.NPCChatSystem;
 import dev.archdemone.npcintegration.utils.MessageUtil;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -20,10 +23,12 @@ public class PlayerListener implements Listener {
     
     private final NPCIntegrationPlugin plugin;
     private final NPCManager npcManager;
+    private final NPCChatSystem chatSystem;
     
     public PlayerListener(NPCIntegrationPlugin plugin) {
         this.plugin = plugin;
         this.npcManager = plugin.getNPCManager();
+        this.chatSystem = plugin.getChatSystem();
     }
     
     @EventHandler
@@ -57,8 +62,29 @@ public class PlayerListener implements Listener {
     
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        // Clean up any player-specific NPC data if needed
-        // This is a placeholder for future player-specific features
+        // Clear active conversations when player leaves
+        if (chatSystem != null) {
+            chatSystem.clearConversation(event.getPlayer());
+        }
+    }
+    
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        Player player = event.getPlayer();
+        String message = event.getMessage();
+        
+        // Process chat message for NPC interactions
+        if (chatSystem != null && chatSystem.processChatMessage(player, message)) {
+            // Cancel the event so the message doesn't appear in normal chat
+            event.setCancelled(true);
+            
+            // Send the message to nearby players manually (excluding NPC responses)
+            for (Player recipient : event.getRecipients()) {
+                if (recipient != player) {
+                    recipient.sendMessage("<" + player.getDisplayName() + "> " + message);
+                }
+            }
+        }
     }
     
     @EventHandler

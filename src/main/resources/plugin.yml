@@ -27,3 +27,6 @@ permissions:
   npcintegration.remove:
     description: Allows removing NPCs
     default: op
+  npcintegration.chat:
+    description: Allows chatting with NPCs
+    default: true
