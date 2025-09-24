@@ -219,6 +219,22 @@ public class NPCChatSystem {
     }
     
     /**
+     * Handles questions from players
+     */
+    private String handleQuestion(NPCManager.NPCDetails details, Player player, String message, NPCMemory memory) {
+        String npcType = details.getType().toLowerCase();
+        
+        switch (npcType) {
+            case "woodcutter":
+                return "I'm a woodcutter! I can help you with chopping trees, planting saplings, and other wood-related tasks.";
+            case "blacksmith":
+                return "I'm a blacksmith! I can help you repair equipment, craft items, and work with metal.";
+            default:
+                return "I'm here to help! What would you like to know?";
+        }
+    }
+    
+    /**
      * Handles task assignment to NPCs
      */
     private String handleTaskAssignment(NPCManager.NPCDetails details, Player player, String message, NPCMemory memory) {

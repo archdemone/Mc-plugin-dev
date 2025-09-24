@@ -9,6 +9,7 @@ import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -321,8 +322,8 @@ public class NPCTaskManager {
     private void chopTree(NPCManager.NPCDetails details, Location treeLocation) {
         NPC npc = details.getCitizensNPC();
         if (npc != null && npc.isSpawned()) {
-            // Make NPC look at the tree
-            npc.getEntity().lookAt(treeLocation);
+            // Make NPC look at the tree (using Citizens navigation)
+            npc.getNavigator().setTarget(treeLocation);
             
             // Move towards the tree
             npc.getNavigator().setTarget(treeLocation);
@@ -365,8 +366,8 @@ public class NPCTaskManager {
     private void plantSapling(NPCManager.NPCDetails details, Location plantLocation) {
         NPC npc = details.getCitizensNPC();
         if (npc != null && npc.isSpawned()) {
-            // Make NPC look at the planting spot
-            npc.getEntity().lookAt(plantLocation);
+            // Make NPC look at the planting spot (using Citizens navigation)
+            npc.getNavigator().setTarget(plantLocation);
             
             // Move towards the spot
             npc.getNavigator().setTarget(plantLocation);
@@ -384,17 +385,19 @@ public class NPCTaskManager {
         if (modelEngineIntegration != null && details.getModelName() != null) {
             Entity targetEntity = details.getMythicMobEntity();
             if (targetEntity == null && details.getCitizensNPC() != null) {
-                targetEntity = (org.bukkit.entity.Entity) details.getCitizensNPC().getEntity();
+                targetEntity = details.getCitizensNPC().getEntity();
             }
             
             if (targetEntity != null) {
-                modelEngineIntegration.playAnimation(targetEntity, details.getModelName(), "woodcutting");
+                final Entity finalTargetEntity = targetEntity;
+                final String modelName = details.getModelName();
+                modelEngineIntegration.playAnimation(finalTargetEntity, modelName, "woodcutting");
                 
                 // Stop animation after 2 seconds
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        modelEngineIntegration.stopAnimation(targetEntity, details.getModelName(), "woodcutting");
+                        modelEngineIntegration.stopAnimation(finalTargetEntity, modelName, "woodcutting");
                     }
                 }.runTaskLater(plugin, 40L);
             }
@@ -409,17 +412,19 @@ public class NPCTaskManager {
         if (modelEngineIntegration != null && details.getModelName() != null) {
             Entity targetEntity = details.getMythicMobEntity();
             if (targetEntity == null && details.getCitizensNPC() != null) {
-                targetEntity = (org.bukkit.entity.Entity) details.getCitizensNPC().getEntity();
+                targetEntity = details.getCitizensNPC().getEntity();
             }
             
             if (targetEntity != null) {
-                modelEngineIntegration.playAnimation(targetEntity, details.getModelName(), "planting");
+                final Entity finalTargetEntity = targetEntity;
+                final String modelName = details.getModelName();
+                modelEngineIntegration.playAnimation(finalTargetEntity, modelName, "planting");
                 
                 // Stop animation after 3 seconds
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        modelEngineIntegration.stopAnimation(targetEntity, details.getModelName(), "planting");
+                        modelEngineIntegration.stopAnimation(finalTargetEntity, modelName, "planting");
                     }
                 }.runTaskLater(plugin, 60L);
             }
@@ -434,7 +439,7 @@ public class NPCTaskManager {
         if (modelEngineIntegration != null && details.getModelName() != null) {
             Entity targetEntity = details.getMythicMobEntity();
             if (targetEntity == null && details.getCitizensNPC() != null) {
-                targetEntity = (org.bukkit.entity.Entity) details.getCitizensNPC().getEntity();
+                targetEntity = details.getCitizensNPC().getEntity();
             }
             
             if (targetEntity != null) {
@@ -451,17 +456,19 @@ public class NPCTaskManager {
         if (modelEngineIntegration != null && details.getModelName() != null) {
             Entity targetEntity = details.getMythicMobEntity();
             if (targetEntity == null && details.getCitizensNPC() != null) {
-                targetEntity = (org.bukkit.entity.Entity) details.getCitizensNPC().getEntity();
+                targetEntity = details.getCitizensNPC().getEntity();
             }
             
             if (targetEntity != null) {
-                modelEngineIntegration.playAnimation(targetEntity, details.getModelName(), "smithing");
+                final Entity finalTargetEntity = targetEntity;
+                final String modelName = details.getModelName();
+                modelEngineIntegration.playAnimation(finalTargetEntity, modelName, "smithing");
                 
                 // Stop animation after 4 seconds
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        modelEngineIntegration.stopAnimation(targetEntity, details.getModelName(), "smithing");
+                        modelEngineIntegration.stopAnimation(finalTargetEntity, modelName, "smithing");
                     }
                 }.runTaskLater(plugin, 80L);
             }

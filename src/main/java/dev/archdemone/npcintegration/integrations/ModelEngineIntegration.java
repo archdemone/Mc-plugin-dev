@@ -1,17 +1,13 @@
 package dev.archdemone.npcintegration.integrations;
 
 import dev.archdemone.npcintegration.NPCIntegrationPlugin;
-import com.ticxo.modelengine.api.ModelEngineAPI;
-import com.ticxo.modelengine.api.model.ActiveModel;
-import com.ticxo.modelengine.api.model.ModeledEntity;
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
 import java.util.Optional;
 
 /**
- * Integration class for ModelEngine plugin
- * Handles custom model creation and management through ModelEngine API
+ * Stub implementation for ModelEngine integration
+ * This will be replaced with proper integration when dependencies are available
  */
 public class ModelEngineIntegration {
     
@@ -19,172 +15,80 @@ public class ModelEngineIntegration {
     
     public ModelEngineIntegration(NPCIntegrationPlugin plugin) {
         this.plugin = plugin;
+        plugin.getLogger().warning("ModelEngine integration is not available - using stub implementation");
     }
     
     /**
-     * Applies a custom model to an entity
-     * @param entity The entity to apply the model to
-     * @param modelName The name of the model to apply
-     * @return true if successful, false otherwise
+     * Applies a custom model to an entity (stub implementation)
      */
     public boolean applyModel(Entity entity, String modelName) {
-        try {
-            // Get or create a modeled entity
-            ModeledEntity modeledEntity = ModelEngineAPI.getModeledEntity(entity);
-            
-            // Check if the model exists
-            if (!ModelEngineAPI.isModelRegistered(modelName)) {
-                plugin.getLogger().warning("Model not found: " + modelName);
-                return false;
-            }
-            
-            // Add the model to the entity
-            modeledEntity.addActiveModel(modelName);
-            
-            plugin.getLogger().info("Applied model '" + modelName + "' to entity: " + entity.getType());
-            return true;
-            
-        } catch (Exception e) {
-            plugin.getLogger().severe("Failed to apply model: " + e.getMessage());
-            return false;
-        }
+        plugin.getLogger().warning("ModelEngine not available - cannot apply model: " + modelName);
+        return false;
     }
     
     /**
-     * Removes a custom model from an entity
-     * @param entity The entity to remove the model from
-     * @param modelName The name of the model to remove
-     * @return true if successful, false otherwise
+     * Removes a custom model from an entity (stub implementation)
      */
     public boolean removeModel(Entity entity, String modelName) {
-        try {
-            ModeledEntity modeledEntity = ModelEngineAPI.getModeledEntity(entity);
-            modeledEntity.removeActiveModel(modelName);
-            
-            plugin.getLogger().info("Removed model '" + modelName + "' from entity: " + entity.getType());
-            return true;
-            
-        } catch (Exception e) {
-            plugin.getLogger().severe("Failed to remove model: " + e.getMessage());
-            return false;
-        }
+        plugin.getLogger().warning("ModelEngine not available - cannot remove model: " + modelName);
+        return false;
     }
     
     /**
-     * Checks if a model is applied to an entity
-     * @param entity The entity to check
-     * @param modelName The name of the model to check for
-     * @return true if the model is applied
+     * Checks if a model is applied to an entity (stub implementation)
      */
     public boolean hasModel(Entity entity, String modelName) {
-        try {
-            ModeledEntity modeledEntity = ModelEngineAPI.getModeledEntity(entity);
-            return modeledEntity.getActiveModel(modelName).isPresent();
-        } catch (Exception e) {
-            return false;
-        }
+        return false; // Always false since ModelEngine is not available
     }
     
     /**
-     * Gets the active model for an entity
-     * @param entity The entity to check
-     * @param modelName The name of the model
-     * @return Optional containing the active model if found
+     * Gets the active model for an entity (stub implementation)
      */
-    public Optional<ActiveModel> getActiveModel(Entity entity, String modelName) {
-        try {
-            ModeledEntity modeledEntity = ModelEngineAPI.getModeledEntity(entity);
-            return modeledEntity.getActiveModel(modelName);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    public Optional<Object> getActiveModel(Entity entity, String modelName) {
+        return Optional.empty();
     }
     
     /**
-     * Plays an animation on an entity's model
-     * @param entity The entity with the model
-     * @param modelName The name of the model
-     * @param animationName The name of the animation to play
-     * @return true if successful
+     * Plays an animation on an entity's model (stub implementation)
      */
     public boolean playAnimation(Entity entity, String modelName, String animationName) {
-        try {
-            Optional<ActiveModel> activeModelOpt = getActiveModel(entity, modelName);
-            if (activeModelOpt.isPresent()) {
-                activeModelOpt.get().playAnimation(animationName);
-                plugin.getLogger().info("Playing animation '" + animationName + "' on model '" + modelName + "'");
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            plugin.getLogger().severe("Failed to play animation: " + e.getMessage());
-            return false;
-        }
+        plugin.getLogger().warning("ModelEngine not available - cannot play animation: " + animationName);
+        return false;
     }
     
     /**
-     * Stops an animation on an entity's model
-     * @param entity The entity with the model
-     * @param modelName The name of the model
-     * @param animationName The name of the animation to stop
-     * @return true if successful
+     * Stops an animation on an entity's model (stub implementation)
      */
     public boolean stopAnimation(Entity entity, String modelName, String animationName) {
-        try {
-            Optional<ActiveModel> activeModelOpt = getActiveModel(entity, modelName);
-            if (activeModelOpt.isPresent()) {
-                activeModelOpt.get().stopAnimation(animationName);
-                plugin.getLogger().info("Stopped animation '" + animationName + "' on model '" + modelName + "'");
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            plugin.getLogger().severe("Failed to stop animation: " + e.getMessage());
-            return false;
-        }
+        plugin.getLogger().warning("ModelEngine not available - cannot stop animation: " + animationName);
+        return false;
     }
     
     /**
-     * Checks if a model is registered
-     * @param modelName The name of the model to check
-     * @return true if the model is registered
+     * Checks if a model is registered (stub implementation)
      */
     public boolean isModelRegistered(String modelName) {
-        return ModelEngineAPI.isModelRegistered(modelName);
+        return false; // Always false since ModelEngine is not available
     }
     
     /**
-     * Gets a modeled entity wrapper
-     * @param entity The entity to wrap
-     * @return The modeled entity wrapper
+     * Gets a modeled entity wrapper (stub implementation)
      */
-    public ModeledEntity getModeledEntity(Entity entity) {
-        return ModelEngineAPI.getModeledEntity(entity);
+    public Object getModeledEntity(Entity entity) {
+        return null;
     }
     
     /**
-     * Checks if an entity has any models applied
-     * @param entity The entity to check
-     * @return true if the entity has models
+     * Checks if an entity has any models applied (stub implementation)
      */
     public boolean isModeledEntity(Entity entity) {
-        try {
-            ModeledEntity modeledEntity = ModelEngineAPI.getModeledEntity(entity);
-            return !modeledEntity.getActiveModels().isEmpty();
-        } catch (Exception e) {
-            return false;
-        }
+        return false; // Always false since ModelEngine is not available
     }
     
     /**
      * Checks if ModelEngine is available
-     * @return true if ModelEngine is available
      */
     public boolean isAvailable() {
-        try {
-            return ModelEngineAPI.getModelManager() != null;
-        } catch (Exception e) {
-            return false;
-        }
+        return false; // Always false since we're using stub implementation
     }
 }

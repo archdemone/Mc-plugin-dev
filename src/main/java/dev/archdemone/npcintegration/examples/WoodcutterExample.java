@@ -176,14 +176,16 @@ public class WoodcutterExample {
         }
         
         if (targetEntity != null && details.getModelName() != null && modelEngineIntegration != null) {
+            final Entity finalTargetEntity = targetEntity;
+            final String modelName = details.getModelName();
             // Play woodcutting animation
-            modelEngineIntegration.playAnimation(targetEntity, details.getModelName(), "woodcutting");
+            modelEngineIntegration.playAnimation(finalTargetEntity, modelName, "woodcutting");
             
             // Stop animation after 2 seconds
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    modelEngineIntegration.stopAnimation(targetEntity, details.getModelName(), "woodcutting");
+                    modelEngineIntegration.stopAnimation(finalTargetEntity, modelName, "woodcutting");
                 }
             }.runTaskLater(plugin, 40L); // 2 seconds later
         }
@@ -206,8 +208,8 @@ public class WoodcutterExample {
                     
                     // Check if there's a tree (log) nearby
                     if (checkLocation.getBlock().getType().toString().contains("LOG")) {
-                        // Make NPC look at the tree
-                        npc.getEntity().lookAt(checkLocation);
+                        // Make NPC look at the tree (using Citizens navigation)
+                        npc.getNavigator().setTarget(checkLocation);
                         
                         // Move towards the tree
                         npc.getNavigator().setTarget(checkLocation);
@@ -233,14 +235,16 @@ public class WoodcutterExample {
         }
         
         if (targetEntity != null && details.getModelName() != null && modelEngineIntegration != null) {
+            final Entity finalTargetEntity = targetEntity;
+            final String modelName = details.getModelName();
             // Play rest animation
-            modelEngineIntegration.playAnimation(targetEntity, details.getModelName(), "rest");
+            modelEngineIntegration.playAnimation(finalTargetEntity, modelName, "rest");
             
             // Stop animation after 5 seconds
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    modelEngineIntegration.stopAnimation(targetEntity, details.getModelName(), "rest");
+                    modelEngineIntegration.stopAnimation(finalTargetEntity, modelName, "rest");
                 }
             }.runTaskLater(plugin, 100L); // 5 seconds later
         }

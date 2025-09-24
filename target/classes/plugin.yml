@@ -1,0 +1,32 @@
+name: NPCIntegration
+version: '1.0.0'
+main: dev.archdemone.npcintegration.NPCIntegrationPlugin
+api-version: 1.20
+author: archdemone
+description: Advanced NPC integration using Citizens, MythicMobs, and ModelEngine
+website: https://github.com/archdemone/npc-integration
+
+depend: [Citizens, MythicMobs, ModelEngine]
+
+commands:
+  npcintegration:
+    description: Main command for NPC integration features
+    usage: /<command> [help|create|spawn|remove|list]
+    aliases: [npc, npci]
+
+permissions:
+  npcintegration.admin:
+    description: Allows full access to NPC integration features
+    default: op
+  npcintegration.create:
+    description: Allows creating NPCs
+    default: true
+  npcintegration.spawn:
+    description: Allows spawning NPCs
+    default: true
+  npcintegration.remove:
+    description: Allows removing NPCs
+    default: op
+  npcintegration.chat:
+    description: Allows chatting with NPCs
+    default: true

@@ -31,17 +31,6 @@
             <url>https://maven.citizensnpcs.co/repo</url>
         </repository>
         
-        <!-- MythicMobs Repository -->
-        <repository>
-            <id>mythicmobs-repo</id>
-            <url>https://mvn.lumine.io/repository/maven-public/</url>
-        </repository>
-        
-        <!-- ModelEngine Repository -->
-        <repository>
-            <id>modelengine-repo</id>
-            <url>https://mvn.lumine.io/repository/maven-public/</url>
-        </repository>
         
         <!-- JitPack for additional dependencies -->
         <repository>
@@ -67,21 +56,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- MythicMobs API -->
-        <dependency>
-            <groupId>io.lumine</groupId>
-            <artifactId>MythicMobs</artifactId>
-            <version>5.2.1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- ModelEngine API -->
-        <dependency>
-            <groupId>com.ticxo</groupId>
-            <artifactId>modelengine</artifactId>
-            <version>4.2.0</version>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- Annotations -->
         <dependency>

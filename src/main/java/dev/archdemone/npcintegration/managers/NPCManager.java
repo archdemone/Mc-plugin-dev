@@ -221,7 +221,7 @@ public class NPCManager {
                     // Relink with existing Citizens NPC
                     CitizensIntegration citizensIntegration = plugin.getCitizensIntegration();
                     if (citizensIntegration != null) {
-                        NPC npc = citizensIntegration.getNPC(npcId);
+                        NPC npc = citizensIntegration.getNPC((int) npcId);
                         if (npc != null) {
                             details.setCitizensNPC(npc);
                         }

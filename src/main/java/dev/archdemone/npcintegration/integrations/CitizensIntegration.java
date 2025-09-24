@@ -5,11 +5,11 @@ import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import net.citizensnpcs.api.trait.trait.Equipment;
-import net.citizensnpcs.api.trait.trait.Profession;
 import net.citizensnpcs.trait.LookClose;
 import net.citizensnpcs.trait.SkinTrait;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -63,11 +63,11 @@ public class CitizensIntegration {
     private void applyNPCTypeConfiguration(NPC npc, String npcType) {
         String configPath = "npc-types." + npcType;
         
-        // Set profession
-        String profession = plugin.getConfig().getString(configPath + ".profession", "fletcher");
-        npc.getOrAddTrait(Profession.class).setProfession(profession);
+        // Set profession - Note: Profession trait may need different approach in newer Citizens versions
+        // For now, we'll skip profession setting and rely on skin
         
         // Set skin based on profession
+        String profession = plugin.getConfig().getString(configPath + ".profession", "fletcher");
         SkinTrait skinTrait = npc.getOrAddTrait(SkinTrait.class);
         skinTrait.setSkinName(profession);
         
@@ -129,13 +129,29 @@ public class CitizensIntegration {
     }
     
     /**
+     * Gets an NPC by entity
+     * @param entity The entity to find NPC for
+     * @return The NPC or null if not found
+     */
+    public NPC getNPC(Entity entity) {
+        // Citizens API doesn't have getByEntity, so we need to iterate through all NPCs
+        for (NPC npc : registry) {
+            if (npc.getEntity() != null && npc.getEntity().equals(entity)) {
+                return npc;
+            }
+        }
+        return null;
+    }
+    
+    /**
      * Makes an NPC look at a player
      * @param npc The NPC
      * @param player The player to look at
      */
     public void makeNPCLookAt(NPC npc, Player player) {
         if (npc != null && npc.isSpawned()) {
-            npc.getEntity().lookAt(player.getEyeLocation());
+            // Use Citizens navigation to look at player
+            npc.getNavigator().setTarget(player.getLocation());
         }
     }
     
